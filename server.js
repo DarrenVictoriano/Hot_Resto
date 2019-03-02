@@ -12,28 +12,28 @@ app.use(express.json());
 // Data
 // ===========================================================
 var reservationData = [{
-    routeName: "yoda",
-    name: "Yoda",
+    name: "Yoda1",
     phone: "721-123-3123",
-    email: "jedi@master.com"
+    email: "jedi@master.com",
+    customerID: "yoda1"
 }, {
-    routeName: "yoda",
-    name: "Yoda",
+    name: "Yoda2",
     phone: "721-123-3123",
-    email: "jedi@master.com"
+    email: "jedi@master.com",
+    customerID: "yoda2"
 }, {
-    routeName: "yoda",
-    name: "Yoda",
+    name: "Yoda3",
     phone: "721-123-3123",
-    email: "jedi@master.com"
+    email: "jedi@master.com",
+    customerID: "yoda3"
 }];
 
 var waitingList = [
     {
-        routeName: "yoda",
-        name: "Yoda",
+        name: "YodaWait",
         phone: "721-123-3123",
-        email: "jedi@master.com"
+        email: "jedi@master.com",
+        customerID: "yodawait"
     }
 ];
 
@@ -61,6 +61,28 @@ app.get("/api/tables", function (req, res) {
 app.get("/api/waitlist", function (req, res) {
 
     return res.json(waitingList);
+
+});
+
+app.post("/api/tables", function (req, res) {
+    var newReserve = req.body;
+
+    if (reservationData.length > 4) {
+        waitingList.push(newReserve);
+        return res.send(false);
+    } else {
+        reservationData.push(newReserve);
+        return res.send(true);
+    }
+
+});
+
+app.get("/api/clear", function (req, res) {
+
+    reservationData = [];
+    waitingList = [];
+
+    res.sendFile(path.join(__dirname, "table.html"));
 
 });
 
