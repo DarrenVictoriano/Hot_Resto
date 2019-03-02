@@ -28,6 +28,15 @@ var reservationData = [{
     email: "jedi@master.com"
 }];
 
+var waitingList = [
+    {
+        routeName: "yoda",
+        name: "Yoda",
+        phone: "721-123-3123",
+        email: "jedi@master.com"
+    }
+];
+
 // Routes
 // ===========================================================
 
@@ -43,6 +52,17 @@ app.get("/tables", function (req, res) {
     res.sendFile(path.join(__dirname, "table.html"));
 });
 
+app.get("/api/tables", function (req, res) {
+
+    return res.json(reservationData);
+
+});
+
+app.get("/api/waitlist", function (req, res) {
+
+    return res.json(waitingList);
+
+});
 
 // Listener
 // ===========================================================
